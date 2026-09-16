@@ -1,6 +1,8 @@
+import av
 import streamlit as st
-from ultralytics import YOLO
 from PIL import Image
+from streamlit_webrtc import webrtc_streamer
+from ultralytics import YOLO
 
 st.title("Deteksi Ekspresi Wajah")
 
@@ -27,8 +29,16 @@ if input_type == "File":
         results = model(img)
         st.image(results[0].plot(), caption="Hasil Deteksi")
 else:
-    camera_file = st.camera_input("Ambil Foto dari Kamera")
-    if camera_file:
-        img = Image.open(camera_file)
-        results = model(img)
-        st.image(results[0].plot(), caption="Hasil Deteksi")
+    conf = st.sidebar.slider("Confidence Threshold", 0.05, 0.95, 0.25)
+
+    def video_frame_callback(frame):
+        img = frame.to_ndarray(format="bgr24")
+        results = model.predict(img, conf=conf, verbose=False)
+        annotated = results[0].plot()
+        return av.VideoFrame.from_ndarray(annotated, format="bgr24")
+
+    webrtc_streamer(
+        key="deteksi-live",
+        video_frame_callback=video_frame_callback,
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+    )
