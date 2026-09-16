@@ -8,4 +8,4 @@ uploaded_file = st.file_uploader("Unggah Gambar", type=["jpg", "png"])
 if uploaded_file:
     img = Image.open(uploaded_file)
     results = model(img)
-    st.image(results.render()[0], caption="Hasil Deteksi")
+    st.image(results[0].plot(), caption="Hasil Deteksi")
