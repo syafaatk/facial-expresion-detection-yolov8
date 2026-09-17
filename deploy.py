@@ -7,10 +7,10 @@ from ultralytics import YOLO
 st.title("Deteksi Ekspresi Wajah")
 
 model_options = {
-    "Best (hasil training)": "runs/detect/train/weights/best.pt",
-    "Last (hasil training)": "runs/detect/train/weights/last.pt",
-    "YOLOv8n": "yolov8n.pt",
-    "YOLO11n": "yolo11n.pt",
+    "Best yolov8n (hasil training)": "runs/detect/train/weights/best.pt",
+    "Last yolov8n (hasil training)": "runs/detect/train/weights/last.pt",
+    "Best yolov8x (hasil training)": "runs/detect/train/weights/yolov8x/best_yolov8x.pt",
+    "Last yolov8x (hasil training)": "runs/detect/train/weights/yolov8x/last_yolov8x.pt",
 }
 
 @st.cache_resource
