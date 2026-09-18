@@ -10,12 +10,25 @@ model_options = {
     "Best yolov8n (hasil training)": "runs/detect/train/weights/best.pt",
     "Last yolov8n (hasil training)": "runs/detect/train/weights/last.pt",
     "Best yolov8x (hasil training)": "runs/detect/train/weights/yolov8x/best_yolov8x.pt",
-    "Last yolov8x (hasil training)": "runs/detect/train/weights/yolov8x/last_yolov8x.pt",
+}
+
+EMOTION_NAMES = {
+    0: "Anger",
+    1: "Contempt",
+    2: "Disgust",
+    3: "Fear",
+    4: "Happy",
+    5: "Neutral",
+    6: "Sad",
+    7: "Surprise",
 }
 
 @st.cache_resource
 def load_model(path):
-    return YOLO(path)
+    model = YOLO(path)
+    if len(model.names) == 8:
+        model.names = EMOTION_NAMES
+    return model
 
 model_name = st.sidebar.selectbox("Pilih Model", list(model_options.keys()))
 model = load_model(model_options[model_name])

@@ -5,4 +5,4 @@ val: valid/images
 test: test/images
 
 nc: 8
-names: ['neutral', 'happy', 'sad', 'surprise', 'fear', 'disgust', 'anger', 'contempt']
+names: ['Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
